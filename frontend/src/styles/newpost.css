@@ -1,0 +1,80 @@
+.n_post {
+    width: 100vw;
+   min-height: 100vh;
+    background-color: rgb(87, 25, 25);
+    display: inline-block;
+}
+
+.n_form {
+    max-width: 600px;
+    min-height: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 10% auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.n_heading {
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    font-size: 22px;
+}
+
+.n_input {
+    width: 400px;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 10px;
+    border: none;
+    border-style: none;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 1;
+    cursor: pointer;
+}
+
+.n_img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.n_caption {
+    width: 400px;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 10px;
+    border: none;
+    border-style: none;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 1;
+    cursor: pointer;
+}
+
+.n_btn {
+    width: 400px;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 10px;
+    border: none;
+    border-style: none;
+    background-color: rgb(139, 4, 4);
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 1;
+    cursor: pointer;
+}
+@media screen and(max-width:600px){
+    .n_post{
+        grid-template-columns: 2fr 1fr;
+    }
+}

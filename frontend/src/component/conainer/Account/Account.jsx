@@ -8,6 +8,7 @@ import { Avatar, Button, Dialog, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useAlert } from 'react-alert'
 import User from '../user/User'
+import { logoutUser } from '../../../redux/action/User'
 
 
 const Account = () => {
@@ -19,6 +20,14 @@ const Account = () => {
     const { error: likeError, message } = useSelector((state) => state.likePost)
     const [followersToggle, setFollowersToggle] = useState(false)
     const [followingToggle, setFollowingToggle] = useState(false)
+
+
+    //loout user
+    const logoutUserHandler = () => {
+        dispatch(logoutUser())
+        alert.success("logout Successfully")
+    }
+
     useEffect(() => {
         dispatch(getMyPostAction())
     }, [dispatch])
@@ -55,9 +64,10 @@ const Account = () => {
                             postImage={post.image.url}
                             likes={post.likes}
                             comments={post.comments}
-                            // ownerImage={post.owner.avatar.url}
-                            // ownerName={post.owner.name}
+                            ownerImage={post.owner.avatar.url}
+                            ownerName={post.owner.name}
                             ownerId={post.owner._id}
+
                         />
 
                     )) : <Typography className='acc_p'>not found</Typography>}
@@ -70,19 +80,19 @@ const Account = () => {
                         Followers
                     </button>
                     <p className='div_num' >{user.followers.length}</p>
-                    <button className='div_btn'>
+                    <button className='div_btn' onClick={() => setFollowingToggle(!followingToggle)}>
                         Following
                     </button>
                     <p className='div_num'>{user.following.length}</p>
                     <p className='div_post'>posts</p>
                     <p className='div_num'>{user.posts.length}</p>
 
-                    <Button variant='contained' style={{ margin: "12px" }}>Logout</Button>
+                    <Button variant='contained' style={{ margin: "12px" }} onClick={logoutUserHandler}>Logout</Button>
                     <Link to="/update/profile" className='div_link'>Edit Profile </Link>
                     <Link to="/update/password" className='div_link'>Change Password</Link>
                     <Button variant='text' className='dlt_pro'>Delete my Profile</Button>
 
-                    {/* Dialog */}
+                    {/* Dialog followers */}
                     <Dialog onClose={() => setFollowersToggle(!followersToggle)} open={followersToggle}>
                         <div className='dialogBox'>
                             <Typography variant="h5" component="div">Followers</Typography>
@@ -93,11 +103,35 @@ const Account = () => {
                                         userId={follower._id}
                                         name={follower.name}
                                         avatar={follower.avatar.url}
+
+
                                     />
 
                                 )) :
 
                                     <Typography>you don't have followers</Typography>
+
+                            }
+                        </div>
+                    </Dialog>
+                    {/* Dialog following */}
+                    <Dialog onClose={() => setFollowingToggle(!followingToggle)} open={followingToggle}>
+                        <div className='dialogBox'>
+                            <Typography variant="h5" component="div">Followers</Typography>
+                            {
+                                user && user.following.length > 0 ? user.following.map((follow) => (
+                                    <User
+                                        key={follow._id}
+                                        userId={follow._id}
+                                        name={follow.name}
+                                        avatar={follow.avatar.url}
+
+
+                                    />
+
+                                )) :
+
+                                    <Typography>you don't have following</Typography>
 
                             }
                         </div>

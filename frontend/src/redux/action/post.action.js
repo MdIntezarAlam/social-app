@@ -93,3 +93,28 @@ export const deleteCommnetAction = (id, commentId) => async (dispatch) => {
 
     }
 }
+
+//New Post (image)Actions
+export const newPostAction = (caption, image) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "newPostRequest"
+        })
+        const { data } =await axios.post("/api/v1/post/upload", {  caption, image }, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        dispatch({
+            type: "newPostSuccess",
+            payload: data.message
+        })
+    } catch (error) {
+        dispatch({
+            type: "newPostFails",
+            payload: error.responce.data.message
+        })
+
+    }
+}
+

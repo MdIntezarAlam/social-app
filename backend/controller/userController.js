@@ -4,9 +4,7 @@ import userModule from "../modules/userModule.js";
 import crypto from 'crypto'
 //register user
 export const regesterUser = async (req, res) => {
-
     try {
-
         //module mai jo kuch bhee hai sab ko pahle reterive kre
         const { name, email, password } = req.body;
         //agr user a;ready exist karta hai tho user already exist show karna hai else new user added karna hai
@@ -48,8 +46,7 @@ export const regesterUser = async (req, res) => {
 export const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body
-        const user = await userModule.findOne({ email }).select("+password")
-        //agr user nahi exist karta hai
+        const user = await userModule.findOne({ email }).select("+password").populate("posts followers following")
         if (!user) {
             return res.status(400).json({ success: false, message: "Dekho User exist nahi karta hai" })
         }
@@ -283,7 +280,7 @@ export const deleteProfile = async (req, res) => {
 //myProfile APi
 export const myProfile = async (req, res) => {
     try {
-        const user = await userModule.findById(req.user._id).populate("posts")
+        const user = await userModule.findById(req.user._id).populate("posts followers following")
         res.status(200).json({
             success: true,
             user
@@ -300,7 +297,7 @@ export const myProfile = async (req, res) => {
 //get UserProfile Api
 export const getUserProfile = async (req, res) => {
     try {
-        const user = await userModule.findById(req.params.id).populate("posts")
+        const user = await userModule.findById(req.params.id).populate("posts followers following")
 
         if (!user) {
             return res.status(404).json({
@@ -345,7 +342,7 @@ export const getMyPost = async (req, res) => {
         const posts = [];
 
         for (let i = 0; i < user.posts.length; i++) {
-            const post = await postModule.findById(user.posts[i]).populate("likes comments.user")
+            const post = await postModule.findById(user.posts[i]).populate("likes comments.user owner")
             posts.push(post)
         }
 

@@ -8,7 +8,8 @@ router
 router
     .route("/login").post(loginUser)
 router
-    .route("/logout").get(logoutUser)
+    .route("/logout")
+    .get(logoutUser)
 
 router
     .route("/update/password")

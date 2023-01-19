@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Routes, Route } from 'react-router-dom'
 import Header from './component/Header'
-import './App.css'
-import { Login, Home, Account } from './component/conainer'
+import NewPost from './component/conainer/Newpost/NewPost'
+import { Login, Home, Account ,} from './component/conainer'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadUser, } from './redux/action/User'
 
@@ -24,6 +24,8 @@ const App = () => {
       <Routes>
         <Route path='/' element={isAuthenticated ? <Home /> : <Login />} />
         <Route path='/account' element={isAuthenticated ? <Account /> : <Login />} />
+        <Route path='/newPost' element={isAuthenticated ? <NewPost /> : <Login />} />
+
       </Routes>
     </Router>
   )

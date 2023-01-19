@@ -1,26 +1,31 @@
 import postModule from "../modules/postMoodule.js"
 import userModule from "../modules/userModule.js"
-
+import cloudinary from 'cloudinary'
 
 // create a post Request Api
 export const createPost = async (req, res) => {
     try {
         //jitna bhee module hai postModule mai usko reterive kre pahle
+        const myCloud = await cloudinary.v2.uploader.upload(req.body.image, { folder: "posts" })
+
         const newPostData = {
             caption: req.body.caption,
             image: {
-                public_id: "req.body.public_id",
-                url: "req.body.url",
+                public_id: myCloud.public_id, //only yaha par cloudnary ka url rakh dena hai
+                url: myCloud.secure_url,
             },
             owner: req.user._id,
         };
         const post = await postModule.create(newPostData)
         const user = await userModule.findById(req.user._id)
-        user.posts.push(post._id)
 
+        user.posts.unshift(post._id)
         await user.save()
 
-        res.status(201).json({ success: true, post })
+        res.status(201).json({
+            success: true,
+            message: "post created successfully"
+        })
 
     } catch (error) {
         res.status(500).json({ success: false, message: error.message })
@@ -300,7 +305,7 @@ export const deleteComment = async (req, res) => {
         }
         //check agr cowner comment delete karna chata hai
         if (post.owner.toString() === req.user._id.toString()) {
-            
+
             if (req.body.commentId == undefined) {
                 return res.status(400).json({
                     success: false,

@@ -5,8 +5,9 @@ import userRoutes from './routes/userRoutes.js'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 const app = express()
-app.use(express.json())
-app.use(bodyParser.urlencoded({ extended: false })) //middleware 
+
+app.use(express.json({ limit: '50mb' }))
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: false })) //middleware 
 app.use(cookieParser())
 
 dotenv.config({ path: "backend/config/config.env" })

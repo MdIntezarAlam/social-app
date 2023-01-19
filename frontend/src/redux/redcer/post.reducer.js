@@ -43,8 +43,20 @@ export const likeReducer = createReducer(initailState, {
         state.loading = false
     },
 
+    //new post(image)  reducer
+    newPostRequest: (state) => {
+        state.loading = true
+    },
+    newPostSuccess: (state, action) => {
+        state.loading = false
+        state.message = action.payload
+    },
+    newPostFails: (state) => {
+        state.loading = false
+    },
 
-    likeRequestError: (state) => {
+
+    clearError: (state) => {
         state.error = null
     },
     clearMessage: (state) => {
@@ -52,7 +64,7 @@ export const likeReducer = createReducer(initailState, {
     }
 })
 
-//post Reducer
+//mypost Reducer
 export const postReducer = createReducer(initailState, {
     //like reducer
     mypostRequestPending: (state) => {
@@ -65,7 +77,7 @@ export const postReducer = createReducer(initailState, {
     mypostRequestFails: (state) => {
         state.loading = false;
     },
-    likeRequestError: (state) => {
+    clearError: (state) => {
         state.error = null
     },
     clearMessage: (state) => {
