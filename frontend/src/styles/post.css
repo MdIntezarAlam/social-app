@@ -1,0 +1,122 @@
+.post {
+    width: 40%;
+    margin: 2vmax;
+    box-shadow: 0 0 10px #000;
+    border-radius: 5px;
+    padding: 0 1vmax 2vmax;
+    background-color: #fff;
+    
+}
+
+.post_header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1vmax;
+}
+
+.postImg {
+    width: 100%;
+    height: 50vh;
+
+}
+
+.postAvata {
+    width: 3vmax;
+    height: 3vmax;
+}
+
+.post_header>button {
+    border-radius: 100%;
+    color: #000;
+}
+
+
+.post_details {
+    display: flex;
+    padding: 1vmax;
+    flex-direction: row;
+    align-items: center;
+}
+
+.post_details>a {
+    text-decoration: none;
+    color: #000;
+    margin: 1vmax;
+}
+
+.post_details>a>p {
+    color: #000;
+    align-self: center;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.caption {
+    font-weight: 400;
+    font-size: 15px;
+    opacity: 0.8;
+}
+
+.post_btn {
+    border: none;
+    outline: none;
+    border-style: none;
+    background-color: transparent;
+    margin: 1vmax 2vmax;
+    cursor: pointer;
+}
+
+
+.footer_post>button {
+    color: #000;
+    margin: 0 10px;
+    transition: all 0.1s;
+}
+
+.footer_post>button:hover {
+    transform: translate(-5px);
+}
+
+.footer_post>button>svg {
+    font-size: 25px;
+}
+
+/*  */
+.dialogBox {
+    min-width: 500px;
+    height: 100vh;
+    padding: 2vmax;
+}
+
+/* commnet */
+
+.comment_input {
+    width: 80%;
+    padding: 9px;
+    outline: none;
+    border: 1px solid lightsteelblue;
+    font-size: 18px;
+    font-weight: 500;
+    color: #000;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.c_btn {
+    position: absolute;
+    width: 15%;
+    height: 41px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: cadetblue;
+    outline: none;
+    border-style: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.forms {
+    margin-top: 20px;
+}

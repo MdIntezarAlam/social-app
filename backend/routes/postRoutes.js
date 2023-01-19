@@ -21,7 +21,7 @@ router
 
 
 router
-    .route("/post/commnet/:id")
+    .route("/post/comment/:id")
     .put(isAuthenticated, commnetOnPost)
     .delete(isAuthenticated, deleteComment)
 

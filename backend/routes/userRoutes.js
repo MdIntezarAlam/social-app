@@ -1,5 +1,5 @@
 import express from 'express'
-import { deleteProfile, followUser, forgotPassword, getAllUser, getUserProfile, loginUser, logoutUser, myProfile, regesterUser, resetPassword, updatePassword, updateProfile } from '../controller/userController.js'
+import { deleteProfile, followUser, forgotPassword, getAllUser, getUserProfile, loginUser, logoutUser, myProfile, regesterUser, resetPassword, updatePassword, updateProfile, getMyPost } from '../controller/userController.js'
 import { isAuthenticated } from '../middleware/isAuthenticated.js'
 const router = express.Router()
 
@@ -31,6 +31,10 @@ router
 router
     .route("/forgot/password")
     .post(forgotPassword)
+router
+    .route("/my/post")
+    .get(isAuthenticated, getMyPost)
+
 router
     .route("/password/reset/:token")
     .put(resetPassword)

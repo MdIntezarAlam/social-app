@@ -1,0 +1,39 @@
+.c_container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+    border-radius: 5px;
+    padding: 10px;
+}
+.c_imgContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+}
+
+.c_img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: turquoise;
+}
+.c_name {
+    font-size: 15px;
+    font-weight: 500;
+    color: #000;
+    align-self: center;
+    margin: 5px;
+}
+
+
+.c_deltee {
+    color: red;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}

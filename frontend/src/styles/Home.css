@@ -1,0 +1,75 @@
+ .home_ {
+     background-color: #fff;
+     box-sizing: border-box;
+     display: grid;
+     grid-template-columns: 1fr 400px;
+     height: 100vh;
+ }
+
+ .h_left {
+     background-image: linear-gradient(-20deg, #d558c8 0%, #24d292 100%);
+     overflow-y: auto;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     box-sizing: border-box;
+     border-radius: 4px;
+ }
+
+ .h_right {
+     background-image: #fff;
+     overflow-y: auto;
+     padding: 2vmax;
+     box-sizing: border-box;
+ }
+
+ @media only screen and (max-width: 400px) {
+     .home_ {
+         background-color: rgb(0, 105, 140);
+         flex-direction:column;
+     }
+ }
+
+ .homeuser {
+     display: flex;
+     align-items: center;
+     text-decoration: none;
+     transition: all 0.5s;
+     color: #000;
+ }
+
+ .userimg {
+     width: 60px;
+     height: 60px;
+     border-radius: 100%;
+     margin: 1vmax;
+     border: 3px solid rgb(243, 11, 19);
+ }
+
+ .homeuser:hover {
+     transform: translate(-10px);
+     rotate: 360deg;
+     /* isko delete kar dena hai */
+ }
+
+ .homeuser>p {
+     font-size: 18px;
+     font-weight: 500;
+     opacity: 0.9;
+     line-height: 30px;
+     color: #000;
+ }
+
+ /* @media screen and (max-width: 600px) {
+     .home_ {}
+
+     .h_left {
+         width: 100vw;
+         margin: 0;
+     }
+
+     .h_right {
+         width: 100vw;
+         margin: 0;
+     }
+ } */

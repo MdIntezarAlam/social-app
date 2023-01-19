@@ -67,7 +67,7 @@ export const loginUser = async (req, res) => {
             httpOnly: true
         }
 
-        res.status(201).cookie("token", token, cookieOption).json({
+        res.status(200).cookie("token", token, cookieOption).json({
             success: true,
             user,
             token
@@ -325,10 +325,33 @@ export const getUserProfile = async (req, res) => {
 export const getAllUser = async (req, res) => {
     try {
         const users = await userModule.find({})
-
         res.status(200).json({
             success: true,
             users
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+//get My Post
+export const getMyPost = async (req, res) => {
+    try {
+        const user = await userModule.findById(req.user._id)
+        const posts = [];
+
+        for (let i = 0; i < user.posts.length; i++) {
+            const post = await postModule.findById(user.posts[i]).populate("likes comments.user")
+            posts.push(post)
+        }
+
+        res.status(200).json({
+            success: true,
+            posts
         })
 
     } catch (error) {

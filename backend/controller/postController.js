@@ -122,11 +122,11 @@ export const getPostFollowing = async (req, res) => {
             owner: {
                 $in: user.following,
             },
-        })
+        }).populate("owner likes comments.user");
 
         res.status(200).json({
             success: true,
-            posts
+            posts: posts.reverse()
         })
 
     } catch (error) {
@@ -210,6 +210,7 @@ export const commnetOnPost = async (req, res) => {
                 comment: req.body.comment
             })
             await post.save()
+
             return res.status(200).json({
                 success: true,
                 message: "Commnet Added "
@@ -227,6 +228,66 @@ export const commnetOnPost = async (req, res) => {
 }
 
 //deleete Comment Api
+// export const deleteComment = async (req, res) => {
+//     try {
+//         const post = await postModule.findById(req.params.id)
+//         if (!post) {
+//             return res.status(404).json({
+//                 success: false,
+//                 message: "post not found"
+//             })
+//         }
+
+//         //delete Comment Api agr owner delete karna chahta hai
+//         if (req.body.commentId === undefined) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: "comment   id is required"
+//             })
+//         }
+
+
+//         if (post.owner.toString() === req.user._id.toString()) {
+//             post.comments.forEach((item, index) => {
+//                 //checking item ke undar user ka id same hai ki nahi logined user se
+//                 if (item._id.toString() === req.body.commentId.toString()) {
+//                     return post.comments.splice(index, 1);
+//                 }
+//             });
+//             await post.save()
+
+//             return res.status(200).json({
+//                 success: true,
+//                 message: "selected comment deleted Successfully"
+//             })
+//         }
+//         else {
+//             post.comments.forEach((item, index) => {
+//                 //checking item ke undar user ka id same hai ki nahi logined user se
+//                 if (item.user.toString() === req.user._id.toString()) {
+//                     return post.comments.splice(index, 1);
+//                 }
+//             });
+//             await post.save()
+
+//             return res.status(200).json({
+//                 success: true,
+//                 message: "comment deleted Successfully"
+//             })
+//         }
+
+
+//     } catch (error) {
+//         res.status(500).json({
+//             success: false,
+//             message: error.message
+//         })
+//     }
+// }
+
+
+// delete comment 
+
 export const deleteComment = async (req, res) => {
     try {
         const post = await postModule.findById(req.params.id)
@@ -234,48 +295,43 @@ export const deleteComment = async (req, res) => {
         if (!post) {
             return res.status(404).json({
                 success: false,
-                message: "post not found"
+                message: "Post not Found"
             })
         }
-
-        //delete Comment Api agr owner delete karna chahta hai
-        if (req.body.commentId == undefined) {
-            return res.status(400).json({
-                success: false,
-                message: "comment   id is required"
-            })
-        }
-
-
+        //check agr cowner comment delete karna chata hai
         if (post.owner.toString() === req.user._id.toString()) {
-            post.comments.forEach((item, index) => {
-                //checking item ke undar user ka id same hai ki nahi logined user se 
-                if (item._id.toString() === req.body.commentId.toString()) {
-                    return post.comments.splice(index, 1);
-                }
-            });
-            await post.save()
+            
+            if (req.body.commentId == undefined) {
+                return res.status(400).json({
+                    success: false,
+                    message: "comment   id is required"
+                })
+            }
 
+
+            post.comments.forEach((item, index) => {
+                if (item._id.toString() === req.body.commentId.toString()) {
+                    return post.comments.splice(index, 1)
+                }
+            })
+            await post.save()
             return res.status(200).json({
                 success: true,
-                message: "selected comment deleted Successfully"
+                message: " selected comment deleted"
             })
-        }
-        else {
+        } else {
             post.comments.forEach((item, index) => {
                 //checking item ke undar user ka id same hai ki nahi logined user se 
                 if (item.user.toString() === req.user._id.toString()) {
-                    return post.comments.splice(index, 1);
+                    return post.comments.splice(index, 1)
                 }
-            });
+            })
             await post.save()
-
             return res.status(200).json({
                 success: true,
-                message: "comment deleted Successfully"
+                message: "comment deleted"
             })
         }
-
 
     } catch (error) {
         res.status(500).json({
@@ -283,4 +339,4 @@ export const deleteComment = async (req, res) => {
             message: error.message
         })
     }
-}   
+}

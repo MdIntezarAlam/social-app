@@ -1,10 +1,7 @@
 //login User Action
 import axios from 'axios'
 
-//email & password se hi login karna hai thos isko hi backend mai send karna  hai
-
-
-
+//email & password se hi login karna hai tho isko hi backend mai send karna  hai
 export const loginUser = (email, password) => async (dispatch) => {
 
     try {
@@ -18,18 +15,89 @@ export const loginUser = (email, password) => async (dispatch) => {
                 "Content-Type": "application/json",
             }
         })
-        console.log(data)
+
         //login user success
         dispatch({
             type: "loginSuccess",
-            payload: data.user 
+            payload: data.user
         })
     }
     //login user fails
     catch (error) {
         dispatch({
             type: "loginFail",
-            payload: error
+            payload: error.responce.data.message
+
+        })
+    }
+}
+
+
+
+//LOAD USER ACTION
+export const loadUser = () => async (dispatch) => {
+    try {
+
+        dispatch({
+            type: "loadRequest"
+        })
+        //get All The User Data
+        const { data } = await axios.get("/api/v1/me")
+        dispatch({
+            type: "loadSuccess",
+            payload: data.user
+        })
+    } catch (error) {
+        dispatch({
+            type: "loadFail",
+            payload: error.responce.data.message
+
+        })
+    }
+}
+
+
+
+//post user actions
+export const getfolloingPostAction = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: "postofFollowingRequest"
+        })
+
+        const { data } = await axios.get("/api/v1/posts")
+
+        dispatch({
+            type: "postofFollowingSuccess",
+            payload: data.posts
+        })
+    } catch (error) {
+        dispatch({
+            type: "postofFollowingFails",
+            payload: error.responce.data.message
+        })
+    }
+}
+
+
+
+//get AllUser Details Actions
+
+export const getAllUserActions = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: "getAllUserRequest"
+        })
+        const { data } = await axios.get("/api/v1/users")
+        dispatch({
+            type: "getAllUserSuccess",
+            payload: data.users
+        })
+
+    } catch (error) {
+        dispatch({
+            type: "getAllUserFails",
+            payload: error.responce.data.message
         })
     }
 }
